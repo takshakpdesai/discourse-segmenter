@@ -3,7 +3,7 @@ BERT for Discourse Segmentation
 
 # Description
 
-This is the code for our paper titled "Joint Learning of Syntactic Features helps Discourse Segmentation" accepted at LREC 2020.
+This is the code for our paper titled "Joint Learning of Syntactic Features helps Discourse Segmentation" accepted at LREC 2020. A draft of this paper is available at www.hlt.utdallas.edu/~takshak/LREC.pdf and will be made available by ELRA soon.
 
 To run the segmenter, simply type:
 

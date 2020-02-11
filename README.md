@@ -7,7 +7,7 @@ This is the code for our paper titled "Joint Learning of Syntactic Features help
 
 To run the segmenter, simply type:
 
-python modelrunner.py -train <train> -dev <dev> -test <test> -predicted_answers <answers>
+python modelrunner.py -train train_file -dev dev_file -test test_file -predicted_answers prediction_file
 
 The training, dev and test files can be obtained from https://github.com/disrpt/sharedtask2019. Please use the .conll files for training and dev. The test file must also be a .conll file. Please note that this project assumes the sentence boundaries are already detected (gold or manually).
 

@@ -18,13 +18,13 @@ argument_parser.add_argument('-max_len', '--max_len', help="Provide maximum sequ
 argument_parser.add_argument('-predicted_answers', '--predicted_answers',
                              help="Provide path to save the predicted test answers", type=str, required=True)
 argument_parser.add_argument('-batch_size', '--batch_size', help="Provide the batch size to work with", type=int,
-                             default=128)
+                             default=32)
 argument_parser.add_argument('-learning_rate', '--learning_rate', help="Provide the learning rate to work with",
                              type=float, default=3e-5)
 argument_parser.add_argument('-epochs', '--epochs', help="Provide the maximum number of training epochs", type=int,
                              default=4)
-argument_parser.add_argument('-gpus', '--gpus', help="Provide the number of GPUs you want to work with", type=list,
-                             default=[0, 1, 2, 3, 4, 5, 6, 7])
+argument_parser.add_argument('-gpus', '--gpus', help="Provide the number of GPUs you want to work with", type=int,
+                             default=8)
 argument_parser.add_argument('-default_gpu', '--default_gpu', help="Provide the default GPU", type=int,
                              default=0)
 parsed_args = argument_parser.parse_args()
@@ -33,6 +33,8 @@ torch.manual_seed(0)
 torch.cuda.set_device(parsed_args.default_gpu)
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
+
+gpu_list = range(len(parsed_args.gpus))
 
 # read file and get document, sentence and token dictionaries
 
@@ -60,7 +62,7 @@ trainer = Trainer(e)
 model = trainer.train_tokens(input_ids, input_masks, input_segments, input_labels, input_token_ids, input_poss,
                              input_parents,
                              parsed_args.batch_size,
-                             parsed_args.learning_rate, parsed_args.epochs, parsed_args.default_gpu, parsed_args.gpus,
+                             parsed_args.learning_rate, parsed_args.epochs, parsed_args.default_gpu, gpu_list,
                              test_information=[dev_input_ids, dev_input_masks, dev_input_segments, dev_input_labels, dev_input_token_ids, dev_input_poss, dev_input_parents, dev_tokens, dev_documents, parsed_args.dev_file])
 
 # final testing begins
